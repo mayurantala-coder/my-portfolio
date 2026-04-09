@@ -118,7 +118,6 @@ function App() {
       
 
     <div className="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
-
     {/*  NAV  */}
     <nav id="navbar" role="navigation" aria-label="Main navigation">
       <div className="container">
