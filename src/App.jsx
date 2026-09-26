@@ -218,7 +218,7 @@ function App() {
                   Experiences</span></span>
             </h1>
             <p className="hero-sub">Senior Frontend Developer crafting responsive,
-              performant, and pixel-perfect web applications with React.js and
+              performance, and pixel-perfect web applications with React.js and
               modern web technologies.</p>
             <div className="hero-btns">
               <a href="#projects" className="btn-primary-custom">
@@ -242,17 +242,17 @@ function App() {
             </div>
             <div className="hero-stats" role="list" aria-label="Career highlights">
               <div className="stat" role="listitem">
-                <span className="stat-num" data-count="2">0</span>
+                <span className="stat-num" data-count="3">0</span>
                 <span className="stat-label">Years Experience</span>
               </div>
               <div className="stat-divider" aria-hidden="true"></div>
               <div className="stat" role="listitem">
-                <span className="stat-num" data-count="10">0</span>
+                <span className="stat-num" data-count="6">0</span>
                 <span className="stat-label">Technologies</span>
               </div>
               <div className="stat-divider" aria-hidden="true"></div>
               <div className="stat" role="listitem">
-                <span className="stat-num" data-count="3">0</span>
+                <span className="stat-num" data-count="15">0</span>
                 <span className="stat-label">Major Projects</span>
               </div>
             </div>
@@ -274,7 +274,7 @@ function App() {
                 <svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"
                   opacity=".6" aria-hidden="true"><polygon
                     points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                React.js Expert
+                Web Design Expert
               </div>
             </div>
           </div>
@@ -376,7 +376,7 @@ function App() {
                   strokeLinejoin="round" aria-hidden="true"><circle cx="12"
                     cy="12" r="10" /><polyline
                     points="12 6 12 12 16 14" /></svg><div><div
-                    className="info-lbl">Experience</div><div className="info-val">2+
+                    className="info-lbl">Experience</div><div className="info-val">3+
                     Years · Jul 2023 – Present</div></div></div>
             </div>
           </div>
@@ -497,7 +497,7 @@ function App() {
               <div className="section-tag">Work History</div>
               <h2 className="section-title mt-2" id="exp-h">My professional
                 journey</h2>
-              <p className="section-sub">2+ years at Hyperlink Infosystem — growing
+              <p className="section-sub">3+ years at Hyperlink Infosystem — growing
                 from intern to Senior Frontend Developer building
                 production-grade web products.</p>
             </div>
@@ -549,8 +549,8 @@ function App() {
                       React.js.</li>
                     <li>Converted Figma wireframes into pixel-perfect,
                       responsive interfaces.</li>
-                    <li>Integrated REST APIs and optimized user experience
-                      across multiple devices.</li>
+                    {/* <li>Integrated REST APIs and optimized user experience
+                      across multiple devices.</li> */}
                     <li>Maintained code quality through best practices and
                       GitLab version control.</li>
                   </ul>
