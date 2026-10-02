@@ -252,7 +252,7 @@ function App() {
               </div>
               <div className="stat-divider" aria-hidden="true"></div>
               <div className="stat" role="listitem">
-                <span className="stat-num" data-count="15">0</span>
+                <span className="stat-num" data-count="14">0</span>
                 <span className="stat-label">Major Projects</span>
               </div>
             </div>
