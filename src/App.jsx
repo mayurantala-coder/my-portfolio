@@ -1,5 +1,112 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './index.css';
+
+/* To add a project, append an entry here – the slider picks it up automatically */
+const projects = [
+  {
+    name: 'Axiatom',
+    title: 'Axiatom – Learning Platform',
+    tags: ['React.js', 'UI/UX', 'E-Learning'],
+    desc: 'An online learning platform simplifying education through high-quality video courses. Features structured learning paths, mentor profiles, and engaging content for continuous skill development.',
+    icon: <><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></>,
+  },
+  {
+    name: 'Iwant',
+    title: 'Iwant – Food Application',
+    tags: ['Figma', 'React.js', 'Food App'],
+    desc: 'A modern food desktop application with clean layouts and smooth navigation. Includes dashboard, menu, orders, and profile screens built with strong UI/UX principles for a polished experience.',
+    icon: <path d="M3 11l19-9-9 19-2-8-8-2z" />,
+  },
+  {
+    name: 'SourceNow',
+    title: 'SourceNow – Service Platform',
+    tags: ['Multi-Portal', 'React.js', 'SaaS'],
+    desc: 'A comprehensive multi-user platform with portals for customers, suppliers, admins, and account managers. Features quote management, workflows, chat, payments, and analytics across all panels.',
+    icon: <><rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" /><path d="M7 8h10M7 12h6" /></>,
+  },
+  {
+    name: 'Neshamor',
+    title: 'Neshamor – Preserving Memory for Future Generations',
+    tags: ['Next.js', 'Claude AI', 'Heritage'],
+    desc: 'A global digital platform dedicated to preserving Jewish heritage, cemeteries, family history, archives, and memorials through modern technology, artificial intelligence, and digital restoration. Built in Next.js using Claude AI.',
+    icon: <><path d="M12 2c1.5 2.5 4 4 4 7a4 4 0 0 1-8 0c0-3 2.5-4.5 4-7z" /><path d="M9 14h6v8H9z" /></>,
+  },
+  {
+    name: 'Etasolution',
+    title: 'Etasolution – Business Website',
+    tags: ['PHP', 'Data Visualization', 'Nice Select'],
+    desc: 'A PHP-based project with an integrated library to display data visually through responsive, customizable views. Uses the Nice Select library for enhanced dropdown selection and a user-friendly interface.',
+    icon: <><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></>,
+  },
+];
+
+function ProjectsSlider() {
+  const trackRef = useRef(null);
+  const [edges, setEdges] = useState({ start: true, end: false });
+
+  const updateEdges = () => {
+    const t = trackRef.current;
+    if (!t) return;
+    setEdges({ start: t.scrollLeft <= 1, end: t.scrollLeft + t.clientWidth >= t.scrollWidth - 1 });
+  };
+
+  useEffect(() => {
+    updateEdges();
+    window.addEventListener('resize', updateEdges);
+    return () => window.removeEventListener('resize', updateEdges);
+  }, []);
+
+  const slide = dir => {
+    const t = trackRef.current;
+    if (!t || !t.firstElementChild) return;
+    const gap = parseFloat(getComputedStyle(t).columnGap) || 0;
+    t.scrollBy({ left: dir * (t.firstElementChild.offsetWidth + gap), behavior: 'smooth' });
+  };
+
+  return (
+    <div className="projects-slider">
+      <div className="projects-track" ref={trackRef} onScroll={updateEdges}>
+        {projects.map(p => (
+          <div className="project-slide" key={p.name}>
+            <article className="project-card">
+              <div className="project-thumb" aria-hidden="true">
+                <div className="thumb-grid"></div>
+                <div className="thumb-icon"><svg width="26" height="26"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    strokeWidth="1.7" strokeLinecap="round"
+                    strokeLinejoin="round">{p.icon}</svg></div>
+              </div>
+              <div className="project-body">
+                <div className="project-tags">{p.tags.map(t => <span className="ptag" key={t}>{t}</span>)}</div>
+                <h3 className="project-title">{p.title}</h3>
+                <p className="project-desc">{p.desc}</p>
+                <a href="#" className="project-link"
+                  aria-label={`View ${p.name} project`}>View Details <svg width="12"
+                    height="12" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" strokeWidth="2.2"
+                    strokeLinecap="round" strokeLinejoin="round"
+                    aria-hidden="true"><line x1="5" y1="12" x2="19"
+                      y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
+              </div>
+            </article>
+          </div>
+        ))}
+      </div>
+      <div className="projects-nav">
+        <button type="button" className="projects-nav-btn" onClick={() => slide(-1)}
+          disabled={edges.start} aria-label="Previous projects"><svg width="16"
+            height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+            aria-hidden="true"><polyline points="15 18 9 12 15 6" /></svg></button>
+        <button type="button" className="projects-nav-btn" onClick={() => slide(1)}
+          disabled={edges.end} aria-label="Next projects"><svg width="16"
+            height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"
+            aria-hidden="true"><polyline points="9 18 15 12 9 6" /></svg></button>
+      </div>
+    </div>
+  );
+}
 
 function App() {
   useEffect(() => {
@@ -479,9 +586,22 @@ function App() {
               className="skill-icon-box"><svg width="19" height="19"
                 viewBox="0 0 24 24" fill="none" stroke="currentColor"
                 strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                aria-hidden="true"><circle cx="12" cy="12" r="10" /><path
+                  d="M3.5 8.5l4 11 3-8.5M10.5 11l3 8.5 3.5-11M2.5 8.5h6M9 8.5h6" /></svg></div>WordPress</div>
+          <div className="skill-chip" role="listitem"><div
+              className="skill-icon-box"><svg width="19" height="19"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
+                aria-hidden="true"><circle cx="12" cy="12" r="10" /><path
+                  d="M8.5 8v8M12 8h4M12 12h4M12 16h4" /></svg></div>Elementor</div>
+          {/* <div className="skill-chip" role="listitem"><div
+              className="skill-icon-box"><svg width="19" height="19"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"
                 aria-hidden="true"><path
                   d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg></div>REST
-            APIs</div>
+            APIs</div> */}
+            
         </div>
       </div>
     </section>
@@ -597,99 +717,7 @@ function App() {
             style={{maxWidth: '480px', margin: '0 auto'}}>Real-world applications built
             with attention to performance, design, and user experience.</p>
         </div>
-        <div className="row g-4">
-          <div className="col-lg-4 col-md-6 reveal">
-            <article className="project-card">
-              <div className="project-thumb" aria-hidden="true">
-                <div className="thumb-grid"></div>
-                <div className="thumb-icon"><svg width="26" height="26"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    strokeWidth="1.7" strokeLinecap="round"
-                    strokeLinejoin="round"><path
-                      d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" /><path
-                      d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" /></svg></div>
-              </div>
-              <div className="project-body">
-                <div className="project-tags"><span
-                    className="ptag">React.js</span><span
-                    className="ptag">UI/UX</span><span
-                    className="ptag">E-Learning</span></div>
-                <h3 className="project-title">Axiatom – Learning Platform</h3>
-                <p className="project-desc">An online learning platform simplifying
-                  education through high-quality video courses. Features
-                  structured learning paths, mentor profiles, and engaging
-                  content for continuous skill development.</p>
-                <a href="#" className="project-link"
-                  aria-label="View Axiatom project">View Details <svg width="12"
-                    height="12" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2.2"
-                    strokeLinecap="round" strokeLinejoin="round"
-                    aria-hidden="true"><line x1="5" y1="12" x2="19"
-                      y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-              </div>
-            </article>
-          </div>
-          <div className="col-lg-4 col-md-6 reveal">
-            <article className="project-card">
-              <div className="project-thumb" aria-hidden="true">
-                <div className="thumb-grid"></div>
-                <div className="thumb-icon"><svg width="26" height="26"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    strokeWidth="1.7" strokeLinecap="round"
-                    strokeLinejoin="round"><path
-                      d="M3 11l19-9-9 19-2-8-8-2z" /></svg></div>
-              </div>
-              <div className="project-body">
-                <div className="project-tags"><span className="ptag">Figma</span><span
-                    className="ptag">React.js</span><span className="ptag">Food
-                    App</span></div>
-                <h3 className="project-title">Iwant – Food Application</h3>
-                <p className="project-desc">A modern food desktop application with
-                  clean layouts and smooth navigation. Includes dashboard, menu,
-                  orders, and profile screens built with strong UI/UX principles
-                  for a polished experience.</p>
-                <a href="#" className="project-link"
-                  aria-label="View Iwant project">View Details <svg width="12"
-                    height="12" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2.2"
-                    strokeLinecap="round" strokeLinejoin="round"
-                    aria-hidden="true"><line x1="5" y1="12" x2="19"
-                      y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-              </div>
-            </article>
-          </div>
-          <div className="col-lg-4 col-md-6 reveal">
-            <article className="project-card">
-              <div className="project-thumb" aria-hidden="true">
-                <div className="thumb-grid"></div>
-                <div className="thumb-icon"><svg width="26" height="26"
-                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                    strokeWidth="1.7" strokeLinecap="round"
-                    strokeLinejoin="round"><rect x="2" y="3" width="20"
-                      height="14" rx="2" /><path d="M8 21h8M12 17v4" /><path
-                      d="M7 8h10M7 12h6" /></svg></div>
-              </div>
-              <div className="project-body">
-                <div className="project-tags"><span
-                    className="ptag">Multi-Portal</span><span
-                    className="ptag">React.js</span><span
-                    className="ptag">SaaS</span></div>
-                <h3 className="project-title">SourceNow – Service Platform</h3>
-                <p className="project-desc">A comprehensive multi-user platform with
-                  portals for customers, suppliers, admins, and account
-                  managers. Features quote management, workflows, chat,
-                  payments, and analytics across all panels.</p>
-                <a href="#" className="project-link"
-                  aria-label="View SourceNow project">View Details <svg
-                    width="12" height="12" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" strokeWidth="2.2"
-                    strokeLinecap="round" strokeLinejoin="round"
-                    aria-hidden="true"><line x1="5" y1="12" x2="19"
-                      y2="12" /><polyline points="12 5 19 12 12 19" /></svg></a>
-              </div>
-            </article>
-          </div>
-        </div>
+        <ProjectsSlider />
       </div>
     </section>
 

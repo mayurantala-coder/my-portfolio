@@ -343,6 +343,26 @@ section{padding:6.5rem 0;position:relative;z-index:1}
 }
 .project-link:hover{color:#fff;gap:10px}
 
+/* projects slider */
+.projects-track{
+  display:flex;gap:1.5rem;overflow-x:auto;
+  scroll-snap-type:x mandatory;scroll-behavior:smooth;
+  padding:12px 0 1.5rem;scrollbar-width:none;-ms-overflow-style:none;
+}
+.projects-track::-webkit-scrollbar{display:none}
+.project-slide{flex:0 0 calc((100% - 3rem) / 3);min-width:0;scroll-snap-align:start}
+.projects-nav{display:flex;justify-content:center;gap:.75rem;margin-top:.5rem}
+.projects-nav-btn{
+  width:44px;height:44px;border-radius:50%;
+  background:var(--card2);border:1px solid var(--border-h);color:var(--text2);
+  display:inline-flex;align-items:center;justify-content:center;cursor:pointer;
+  transition:background .2s,border-color .2s,color .2s,opacity .2s;
+}
+.projects-nav-btn:hover:not(:disabled){background:var(--accent-bg2);border-color:var(--border-s);color:#fff}
+.projects-nav-btn:disabled{opacity:.35;cursor:default}
+@media(max-width:991px){.project-slide{flex-basis:calc((100% - 1.5rem) / 2)}}
+@media(max-width:767px){.project-slide{flex-basis:100%}}
+
 /* ── EDUCATION ── */
 .edu-card{
   background:var(--card);border:1px solid var(--border);border-radius:18px;
